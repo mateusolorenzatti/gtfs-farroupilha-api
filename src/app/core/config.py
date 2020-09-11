@@ -7,6 +7,10 @@ from decouple import config
 
 class Settings(BaseSettings):
 
+    PROJECT_NAME: str = "GTFS Farroupilha API"
+
+    API_BASE_ROUTE: str = "/api/v1"
+
     #Importar para aquivo .env
     POSTGRES_SERVER: str = config('POSTGRES_SERVER')
     POSTGRES_USER: str = config('POSTGRES_USER')

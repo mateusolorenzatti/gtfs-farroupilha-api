@@ -2,10 +2,13 @@ from fastapi import FastAPI
 import uvicorn
 
 from database.db import database, engine, metadata
+from core.config import settings
 
 from objects.routes import router as routes
 
-app = FastAPI()
+app = FastAPI(
+    title=settings.PROJECT_NAME
+)
 
 @app.on_event("startup")
 async def startup():
