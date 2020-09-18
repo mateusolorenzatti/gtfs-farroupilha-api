@@ -3,8 +3,8 @@ from fastapi import APIRouter, HTTPException, Path, Depends
 from sqlalchemy.orm import Session
 
 from database.session import get_db
-from objects.routes.schemas import Routes
 
+from objects.routes.schemas import Routes
 from objects.routes import crud
 
 router = APIRouter()
