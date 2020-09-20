@@ -7,9 +7,9 @@ from database.session import get_db
 from objects.routes.schemas import Routes
 from objects.routes import crud
 
-router = APIRouter()
+routes = APIRouter()
 
-@router.get("/", response_model=List[Routes])
+@routes.get("/", response_model=List[Routes])
 def get_multiple_routes(db: Session = Depends(get_db), skip: int = 0, limit: int = 10,) -> List[Routes]:
     """
     Buscar todas as Rotas.
@@ -18,11 +18,11 @@ def get_multiple_routes(db: Session = Depends(get_db), skip: int = 0, limit: int
     
     return routes
 
-@router.get("/{id}", response_model=Routes)
-def get_route(*, db: Session = Depends(get_db), id: int) -> Routes:
+@routes.get("/{route_id}", response_model=Routes)
+def get_route(*, db: Session = Depends(get_db), route_id: int) -> Routes:
     """
     Buscar a Rota especificada.
     """
-    route = crud.routes.get_route(db, id=id)
+    route = crud.routes.get_route(db, id=route_id)
     
     return route
