@@ -2,6 +2,7 @@ from typing import List, Any, Optional
 
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from core.crud import CRUDBase
 
@@ -15,16 +16,10 @@ class CRUDRoutes(CRUDBase[Routes, RoutesCreate, RoutesUpdate]):
         """Para manter a nomenclatura da tabela, foi criado a função que busca pelo route_id. """
 
         return db.query(self.model).filter(self.model.route_id == id).first()
+    
+    def get_route_substr(self, db: Session, substr: str, limit: int = 10) -> List[Routes]:
+        """ Buscar por uma fração presente em nomes das rotas """
 
-    # def get_multi_by_owner(
-    #     self, db: Session, *, owner_id: int, skip: int = 0, limit: int = 100
-    # ) -> List[Item]:
-    #     return (
-    #         db.query(self.model)
-    #         .filter(Item.owner_id == owner_id)
-    #         .offset(skip)
-    #         .limit(limit)
-    #         .all()
-    #     )
+        return db.query(self.model).filter(func.lower(self.model.route_long_name).contains(func.lower(substr))).limit(limit).all()
 
 routes = CRUDRoutes(Routes)

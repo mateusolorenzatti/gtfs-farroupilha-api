@@ -18,7 +18,16 @@ def get_multiple_shapes(db: Session = Depends(get_db), skip: int = 0, limit: int
     
     return shapes
 
-@shapes.get("/{shape_id}", response_model=Shapes)
+@shapes.get("/by_trip/{trip_id}", response_model=List[Shapes])
+def get_shape(*, db: Session = Depends(get_db), trip_id: str,) -> List[Shapes]:
+    """
+    Busca pelos pontos que formam o desenho de um determinado trajeto (trip) por meio do ID do trajeto. 
+    """
+    shape = crud.shapes.get_multiple_shapes_by_trip(db, trip_id = trip_id)
+    
+    return shape
+
+@shapes.get("/id/{shape_id}", response_model=Shapes)
 def get_shape(*, db: Session = Depends(get_db), shape_id: str) -> Shapes:
     """
     Buscar a Shape especificada.

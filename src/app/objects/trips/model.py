@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Integer, String, Float, PrimaryKeyConstraint
+from sqlalchemy import Column, Integer, String, Float, PrimaryKeyConstraint, ForeignKey
 
 from core.base_class import Base
 
@@ -24,6 +24,6 @@ class Trips(Base):
     continuous_drop_off_message = Column(String)
 
     # FKs
-    route_id = Column(Integer, index=True)
-    shape_id = Column(String, index=True)
-    shape_id_serial = Column(Integer)
+    route_id = Column(Integer, ForeignKey("routes.route_id"), index=True)
+    shape_id = Column(String, ForeignKey("shapes.shape_id"), index=True)
+    shape_id_serial = Column(Integer, ForeignKey("shapes.shape_id_serial"))

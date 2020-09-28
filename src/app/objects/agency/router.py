@@ -18,7 +18,7 @@ def get_multiple_agencies(db: Session = Depends(get_db), skip: int = 0, limit: i
     
     return agencies
 
-@agencies.get("/{agency_id}", response_model=Agency)
+@agencies.get("/id/{agency_id}", response_model=Agency)
 def get_agency(*, db: Session = Depends(get_db), agency_id: int) -> Agency:
     """
     Buscar a Agencia especificada.

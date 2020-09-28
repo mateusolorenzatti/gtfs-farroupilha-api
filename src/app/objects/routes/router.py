@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Optional
 from fastapi import APIRouter, HTTPException, Path, Depends
 from sqlalchemy.orm import Session
 
@@ -18,7 +18,16 @@ def get_multiple_routes(db: Session = Depends(get_db), skip: int = 0, limit: int
     
     return routes
 
-@routes.get("/{route_id}", response_model=Routes)
+@routes.get("/{route_substring}", response_model=List[Routes])
+def get_route_substr(*, db: Session = Depends(get_db), route_substring: str) -> Routes:
+    """
+    Busca por rotas (route) por meio de uma substring de entrada. 
+    """
+    routes = crud.routes.get_route_substr(db, substr = route_substring)
+    
+    return routes
+
+@routes.get("/id/{route_id}", response_model=Routes)
 def get_route(*, db: Session = Depends(get_db), route_id: int) -> Routes:
     """
     Buscar a Rota especificada.

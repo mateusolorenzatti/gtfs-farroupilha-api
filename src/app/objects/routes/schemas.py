@@ -2,6 +2,8 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from objects.agency.schemas import Agency
+
 # Shared properties
 class RoutesBase(BaseModel):
     route_id: Optional[int]
@@ -16,6 +18,8 @@ class RoutesBase(BaseModel):
     route_sort_order: Optional[int]
     min_headway_minutes: Optional[int]
     eligibility_restricted: Optional[int]
+
+    # agency: Optional[Agency]
 
 # Properties to receive on Routes creation
 class RoutesCreate(RoutesBase):

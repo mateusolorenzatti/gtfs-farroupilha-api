@@ -18,5 +18,5 @@ class Routes(Base):
     min_headway_minutes = Column(Integer)
     eligibility_restricted = Column(Integer)
 
-    # agency_id = Column(Integer, ForeignKey("agency.agency_id"))
+    agency_id = Column(Integer, ForeignKey("agency.agency_id"))
     # agency = relationship("Agency")
