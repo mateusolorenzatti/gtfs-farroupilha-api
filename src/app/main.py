@@ -4,6 +4,7 @@ import uvicorn
 from database.access_control import db_access_control
 
 from core.config import settings
+from core.home import home
 
 from objects.agency.router import agencies
 from objects.routes.router import routes
@@ -19,6 +20,9 @@ app = FastAPI(
 
 # Adiciona enventos de inicialização e fechamento do banco
 app = db_access_control(app) 
+
+# Configura oara que a rota raiz seja direcionada para /docs
+app.include_router(home, tags=["Home"])
 
 #  Adiciona as rotas dos objects
 app.include_router(routes, prefix="/routes", tags=["Routes"])
