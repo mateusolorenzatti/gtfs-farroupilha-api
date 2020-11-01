@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 import uvicorn
 
 from database.access_control import db_access_control
@@ -16,6 +18,15 @@ from objects.stop_times.router import stop_times
 #  Cria a API e atribuoi o nome (Será exibido em /docs)
 app = FastAPI(
     title=settings.PROJECT_NAME
+)
+
+# Adiciona configurações de acesso pelo CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials = True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Adiciona enventos de inicialização e fechamento do banco
