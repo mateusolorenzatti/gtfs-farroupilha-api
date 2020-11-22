@@ -1,7 +1,9 @@
 
-from typing import Optional
+from typing import Optional, List, ForwardRef
 
 from pydantic import BaseModel
+
+from objects.routes.schemas import Routes
 
 # Shared properties
 class TripsBase(BaseModel):
@@ -25,7 +27,7 @@ class TripsBase(BaseModel):
 
     route_id: Optional[int]
     shape_id: Optional[str]
-    shape_id_serial: Optional[int]
+    # shape_id_serial: Optional[int]
 
 # Properties to receive on Routes creation
 class TripsCreate(TripsBase):
@@ -44,6 +46,7 @@ class TripsInDBBase(TripsBase):
 
 # Properties to return to client
 class Trips(TripsInDBBase):
+    route: Optional[Routes]
     pass
 
 # Properties properties stored in DB

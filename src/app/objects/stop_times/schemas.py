@@ -3,6 +3,8 @@ from typing import Optional
 
 from pydantic import BaseModel
 
+from objects.stops.schemas import Stops
+
 # Shared properties
 class StopTimesBase(BaseModel):
 
@@ -46,7 +48,7 @@ class StopTimesInDBBase(StopTimesBase):
 
 # Properties to return to client
 class StopTimes(StopTimesInDBBase):
-    pass
+    stop: Optional[Stops]
 
 # Properties properties stored in DB
 class StopTimesInDB(StopTimesInDBBase):

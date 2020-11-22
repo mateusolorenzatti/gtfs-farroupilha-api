@@ -1,8 +1,10 @@
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Column, Integer, String, Float, PrimaryKeyConstraint, ForeignKey
+from sqlalchemy.orm import relationship
 
 from core.base_class import Base
+from objects.shapes.model import Shapes
 
 class Trips(Base):
 
@@ -25,5 +27,9 @@ class Trips(Base):
 
     # FKs
     route_id = Column(Integer, ForeignKey("routes.route_id"), index=True)
+    route = relationship("Routes", foreign_keys=[route_id])
+
     shape_id = Column(String, ForeignKey("shapes.shape_id"), index=True)
-    shape_id_serial = Column(Integer, ForeignKey("shapes.shape_id_serial"))
+    # shape_id_serial = Column(Integer, ForeignKey("shapes.shape_id_serial"))
+
+    shape = relationship("Shapes", foreign_keys=[shape_id], order_by=Shapes.shape_pt_sequence)

@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Column, Integer, String, Float, PrimaryKeyConstraint, ForeignKey
+from sqlalchemy.orm import relationship
 
 from core.base_class import Base
 
@@ -27,4 +28,6 @@ class StopTimes(Base):
     drop_off_service_area_radius = Column(String)
 
     stop_id = Column(Integer, ForeignKey("stops.stop_id"), index=True)
+    stop = relationship("Stops", foreign_keys=[stop_id])
+    
     trip_id = Column(String, ForeignKey("trips.trip_id"), index=True)

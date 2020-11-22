@@ -18,11 +18,11 @@ def get_multiple_stop_times(db: Session = Depends(get_db), skip: int = 0, limit:
     
     return stop_times
 
-# @stop_times.get("/{id}", response_model=StopTimes)
-# def get_stop_time(*, db: Session = Depends(get_db), stop_sequence: int) -> StopTimes:
-#     """
-#     Buscar a StopTime especificada.
-#     """
-#     stop_time = crud.stop_times.get_stop_time(db, id=id)
+@stop_times.get("/by_trip/{trip_id}", response_model=List[StopTimes])
+def get_multiple_stop_times_by_trip(*, db: Session = Depends(get_db), trip_id: str) -> List[StopTimes]:
+    """
+    Busca pelos pontos de parada e seus horários que compõem um determinado trajeto (trip) por meio do ID do trajeto. 
+    """
+    stop_times = crud.stop_times.get_multi_by_trip(db, trip_id = trip_id)
     
-#     return stop_time
+    return stop_times
