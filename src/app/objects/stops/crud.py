@@ -26,7 +26,7 @@ class CRUDStops(CRUDBase[Stops, StopsCreate, StopsUpdate]):
     def get_multi_by_trip(self, db: Session, trip_id: str, limit: int = 100) -> List[Stops]:
         """ Filtrar através da trip informada """
 
-        return db.query(self.model).join(StopTimes).filter(StopTimes.trip_id == trip_id).order_by(StopTimes.stop_sequence.asc()).limit(limit).all()
+        return db.query(self.model).join(StopTimes).filter(StopTimes.trip_id == trip_id).order_by(StopTimes.stop_sequence.asc()).all()
     
     def get_multi_by_area(self, db: Session, data_0: Tuple[float, float], data_1: Tuple[float, float], limit: int = 100) -> List[Stops]:
         """ Filtrar paradas dentro dos delimitadores informados """
