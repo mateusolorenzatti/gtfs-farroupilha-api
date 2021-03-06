@@ -37,7 +37,7 @@ def get_multiple_stops_by_trip(*, db: Session = Depends(get_db), trip_id: str, l
     return stops
 
 @stops.get("/{lat_0}/{lng_0}/{lat_1}/{lng_1}", response_model=List[Stops])
-def get_multiple_stops_by_area(*, db: Session = Depends(get_db), lat_0: float, lng_0: float, lat_1: float, lng_1: float, limit: int = 10) -> List[Stops]:
+def get_multiple_stops_by_area(*, db: Session = Depends(get_db), lat_0: float, lng_0: float, lat_1: float, lng_1: float, limit: int = 100) -> List[Stops]:
     """
     Busca por pontos de paradas (stops) cujas localizações geográficas estiverem dentro da região informada.  
     """
